@@ -245,17 +245,42 @@
 @media (max-width: 768px) {
     .modal-content {
         flex-direction: column;
+        /* Habilita o scroll vertical se o conteúdo for maior que a tela */
+        overflow-y: auto !important; 
+        /* Garante que o modal não ultrapasse a tela */
+        max-height: 90vh; 
+    }
+
+    .modal-image {
+        /* Reduz a altura da imagem no celular (400px é muito grande para mobile) */
+        min-height: 200px; 
+        max-height: 250px;
+        flex: none; /* Impede que a imagem tente crescer demais */
     }
 
     .modal-details {
         padding: 2rem;
+        /* Remove a altura mínima obrigatória de 500px, deixando o texto definir o tamanho */
+        min-height: auto; 
     }
-
+    
     .projects-grid {
         grid-template-columns: 1fr;
     }
 
     #modal-desc {
-    font-size: 2.5rem; /* Um tamanho menor para celular */
-  }
+        font-size: 1.6rem; /* Ajuste leve para leitura mobile */
+    }
+    
+    /* Ajuste para os botões não ficarem colados ou muito grandes */
+    .modal-buttons {
+        position: static; /* Remove o sticky para fluir com o scroll */
+        padding: 2rem 0;
+        flex-direction: column; /* Botões um embaixo do outro no celular fica melhor */
+    }
+    
+    .modal-buttons .btn {
+        width: 100%; /* Botão ocupa a largura toda */
+        font-size: 1.8rem;
+    }
 }
