@@ -1,0 +1,261 @@
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.project-card {
+    background: #161616;
+    border: 1px solid #333;
+    border-radius: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    border-color: #b74b4b;
+    box-shadow: 0 20px 40px rgba(183, 75, 75, 0.3);
+}
+
+.card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 2rem;
+}
+
+.card-category {
+    font-size: 1.2rem;
+    color: #b74b4b;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.card-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.card-desc {
+    font-size: 1.6rem;
+    color: #ccc;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.card-link {
+    color: #b74b4b;
+    font-weight: 600;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 2rem;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: #161616;
+    width: 95%;
+    max-width: 1000px;
+    max-height: 90vh;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    display: flex;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: #b74b4b;
+    color: white;
+    border: none;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.6rem;
+    z-index: 10;
+    transition: 0.3s;
+}
+
+.modal-close:hover {
+    transform: scale(1.1);
+}
+
+.modal-image {
+    flex: 1;
+    min-height: 400px;
+}
+
+.modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-details {
+    flex: 1;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+}
+
+.modal-category {
+    font-size: 1.4rem;
+    color: #b74b4b;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.modal-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: white;
+    margin: 1rem 0 2rem;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.tech-tag {
+    background: #b74b4b20;
+    color: #b74b4b;
+    padding: 0.5rem 1.5rem;
+    border-radius: 2rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+#modal-desc {
+    font-size: 2rem;
+    /* Agora vai funcionar sem precisar do !important, mas pode manter se quiser garantir */
+    color: #eee;
+    line-height: 1.8;
+    margin-bottom: auto;
+    flex: 1;
+}
+
+
+
+.modal-buttons {
+    position: sticky;
+    bottom: 0;
+    background: linear-gradient(to top, #161616, transparent);
+    /* degradê suave */
+    padding: 3rem 0 3rem;
+    /* mais espaço embaixo */
+    border-top: 1px solid #444;
+    display: flex;
+    gap: 2rem;
+    margin-top: auto;
+    backdrop-filter: blur(10px);
+    /* efeito vidro */
+}
+
+.modal-buttons .btn {
+    flex: 1;
+    padding: 2.2rem 4rem;
+    /* ainda maior */
+    font-size: 2.2rem;
+    /* texto maior */
+    height: 6rem;
+    /* altura fixa */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-buttons .btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.modal-buttons .btn:hover::before {
+    left: 100%;
+}
+
+.btn-outline {
+    background: transparent !important;
+    border: 3px solid #b74b4b !important;
+    color: #b74b4b !important;
+}
+
+.btn-outline:hover {
+    background: #b74b4b !important;
+    color: white !important;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+    .modal-content {
+        flex-direction: column;
+    }
+
+    .modal-details {
+        padding: 2rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #modal-desc {
+    font-size: 2.5rem; /* Um tamanho menor para celular */
+  }
+}
