@@ -1,4 +1,4 @@
-// Scroll suave (mantém o seu)
+// ========== SCROLL SUAVE ==========
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', function (e) {
     const targetId = this.getAttribute('href');
@@ -10,7 +10,57 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
-// === PROJETOS COM MODAL ===
+
+// ========== HAMBURGER MENU ==========
+const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector(".nav-menu");
+const navLinks = document.querySelectorAll(".nav-menu a");
+const header = document.querySelector('header');
+
+// Verificar se os elementos existem antes de usar
+if (hamburger && navMenu && navLinks.length > 0) {
+    // Abrir/Fechar Menu
+    hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+    });
+
+    // Fechar ao clicar em um link
+    navLinks.forEach(link => {
+        link.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+        });
+    });
+}
+
+
+// ========== LÓGICA DE SCROLL DO HEADER ==========
+let lastScrollTop = 0;
+
+window.addEventListener('scroll', function() {
+    let scrollTop = window.scrollY || document.documentElement.scrollTop;
+    
+    // Se o menu mobile estiver aberto, NÃO esconde o header
+    if (navMenu && navMenu.classList.contains('active')) {
+        lastScrollTop = scrollTop;
+        return;
+    }
+
+    // Lógica: Se rolar para baixo > 50px, esconde
+    if (header) {
+        if (scrollTop > lastScrollTop && scrollTop > 50) {
+            header.style.transform = "translateY(-100%)";
+        } else {
+            header.style.transform = "translateY(0)";
+        }
+    }
+    
+    lastScrollTop = scrollTop;
+});
+
+
+// ========== PROJETOS COM MODAL ===
 const projects = [
   {
     id: 1,
@@ -44,8 +94,11 @@ const projects = [
   }
 ];
 
+
 function renderProjects() {
   const grid = document.getElementById('projects-grid');
+  if (!grid) return; // Proteção se o elemento não existir
+  
   grid.innerHTML = projects.map(project => `
     <div class="project-card" onclick="openProjectModal(${project.id})">
       <img src="${project.image}" alt="${project.title}" class="card-img">
@@ -61,53 +114,60 @@ function renderProjects() {
   `).join('');
 }
 
+
 function openProjectModal(id) {
   const project = projects.find(p => p.id === id);
-  document.getElementById('modal-title').textContent = project.title;
-  document.getElementById('modal-category').textContent = project.category;
-  document.getElementById('modal-desc').textContent = project.fullDesc;
-  document.getElementById('modal-img').src = project.image;
-  document.getElementById('modal-link').href = project.link;
+  if (!project) return;
+  
+  const modal = document.getElementById('project-modal');
+  const modalTitle = document.getElementById('modal-title');
+  const modalCategory = document.getElementById('modal-category');
+  const modalDesc = document.getElementById('modal-desc');
+  const modalImg = document.getElementById('modal-img');
+  const modalLink = document.getElementById('modal-link');
+  const modalTechs = document.getElementById('modal-techs');
+  
+  // Verificar se todos os elementos existem
+  if (!modal || !modalTitle || !modalCategory || !modalDesc || !modalImg || !modalLink || !modalTechs) {
+    console.error('Elementos do modal não encontrados no DOM');
+    return;
+  }
+  
+  modalTitle.textContent = project.title;
+  modalCategory.textContent = project.category;
+  modalDesc.textContent = project.fullDesc;
+  modalImg.src = project.image;
+  modalLink.href = project.link;
   
   // Techs
-  const techs = document.getElementById('modal-techs');
-  techs.innerHTML = project.techs.map(tech => `<span class="tech-tag">${tech}</span>`).join('');
+  modalTechs.innerHTML = project.techs.map(tech => `<span class="tech-tag">${tech}</span>`).join('');
   
-  document.getElementById('project-modal').classList.add('active');
+  modal.classList.add('active');
   document.body.style.overflow = 'hidden';
 }
 
+
 function closeProjectModal() {
-  document.getElementById('project-modal').classList.remove('active');
-  document.body.style.overflow = 'auto';
+  const modal = document.getElementById('project-modal');
+  if (modal) {
+    modal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
 }
 
+
 // Inicializa projetos
-renderProjects();
+document.addEventListener('DOMContentLoaded', renderProjects);
+
 
 // Eventos do modal
-document.getElementById('project-modal').addEventListener('click', (e) => {
-  if (e.target.id === 'project-modal') closeProjectModal();
+document.addEventListener('click', (e) => {
+  const modal = document.getElementById('project-modal');
+  if (modal && e.target.id === 'project-modal') {
+    closeProjectModal();
+  }
 });
+
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeProjectModal();
-});
-
-/* Lógica para esconder o menu ao rolar a tela */
-let lastScrollTop = 0;
-const header = document.querySelector('header');
-
-window.addEventListener('scroll', function() {
-    let scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-    // Se rolar para baixo e já tiver passado de 50px do topo
-    if (scrollTop > lastScrollTop && scrollTop > 50) {
-        // Esconde o header (puxa ele para cima)
-        header.style.transform = "translateY(-100%)";
-    } else {
-        // Se rolar para cima, mostra o header
-        header.style.transform = "translateY(0)";
-    }
-    
-    lastScrollTop = scrollTop;
 });

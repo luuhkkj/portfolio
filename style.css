@@ -264,70 +264,92 @@ section p {
     cursor: pointer;
 }
 
+.hamburger {
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: white; /* Cor das barras */
+}
+
+/* Animação do X quando ativo */
+.hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
 @media (max-width: 955px) {
-    
-    /* 1. Ajusta o Header para ficar em coluna (Logo em cima, links embaixo) */
+    /* Mostra o botão hambúrguer */
+    .hamburger {
+        display: block;
+        z-index: 1001; /* Garante que fique acima de tudo */
+    }
+
+    /* O Header volta a ser linha (Logo na esq, Menu na dir) */
     header {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-between;
         padding: 2rem 5%;
-        gap: 2rem; /* Espaço entre o nome e os links */
-        height: auto; /* Deixa a altura se ajustar sozinha */
+        height: 80px; /* Altura fixa para alinhar o menu */
     }
 
-    /* 2. Removemos o ícone de menu (caso tenha sobrado no HTML) */
-    #menu-icon {
-        display: none;
-    }
-
-    /* 3. O Menu de Navegação */
-    nav {
-        display: flex; /* Sempre visível */
-        flex-wrap: wrap; /* Permite quebrar linha se tiver muitos itens */
-        justify-content: center; /* Centraliza os links */
-        gap: 1.5rem; /* Espaço entre os links */
-        background: transparent; /* Remove fundo preto sólido */
-        position: static; /* Remove posicionamento absoluto bugado */
-        width: auto;
-        border: none;
-        box-shadow: none;
-        padding: 0;
-    }
-
-    /* 4. Estilo dos Links */
-    nav a {
-        display: inline-block;
-        font-size: 1.6rem; /* Tamanho confortável */
-        margin: 0;
-        padding: 0.8rem 1.5rem;
-        background-color: #161616; /* Um fundo sutil nos botões */
-        border-radius: 2rem; /* Botões arredondados */
-        border: 1px solid #333;
-    }
-
-    nav a:hover {
-        background-color: #b74b4b;
-        color: white;
-        border-color: #b74b4b;
-    }
-
-    /* Ajustes da Home para não ficar colada no menu novo */
-    .home {
+    /* O Menu Gaveta */
+    .nav-menu {
+        position: fixed;
+        left: -100%; /* Escondido na esquerda */
+        top: 80px; /* Logo abaixo do header (80px é o padding-top do body) */
+        gap: 0;
         flex-direction: column;
-        margin-top: 14rem; /* Dá espaço para o header maior */
-        gap: 4rem;
-        text-align: center; /* Centraliza texto no mobile */
-    }
-    
-    .home-content h1 {
-        font-size: 4rem;
-    }
-    
-    .home-content h3 {
-        font-size: 2.2rem;
+        background-color: #000; /* Fundo preto sólido */
+        width: 100%;
+        height: auto;
+        max-height: calc(100vh - 80px); /* para a altura não passar da tela */
+        text-align: center;
+        transition: 0.3s ease-in-out;
+        box-shadow: 0 10px 10px rgba(0,0,0,0.5);
+        padding-top: 4rem;
+        display: flex; /* Garante flexbox */
+        justify-content: flex-start; /* Itens no topo */
+        border-top: 1px solid #333;
     }
 
-    .home-img img {
-        width: 60vw;
-        margin-top: 2rem;
+    /* Quando ativo, desliza para a tela */
+    .nav-menu.active {
+        left: 0;
+    }
+
+    /* Estilo dos Links no Mobile */
+    .nav-menu a {
+        display: block;
+        font-size: 2.4rem; /* Texto maior no mobile */
+        margin: 2rem 0;
+        background: transparent;
+        border: none;
+        color: white;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+        color: #b74b4b;
+        background: transparent;
+        border: none; /* Remove bordas antigas */
+    }
+    
+    /* Ajustes da Home para compensar o header fixo */
+    .home {
+        margin-top: 0; 
+        padding-top: 10rem;
     }
 }
