@@ -1,3 +1,4 @@
+/* Grid responsivo dos projetos - auto ajusta colunas */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -5,6 +6,8 @@
     margin-top: 4rem;
 }
 
+
+/* Card individual do projeto */
 .project-card {
     background: #161616;
     border: 1px solid #333;
@@ -15,7 +18,7 @@
 }
 
 .project-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-8px); /* Levanta card no hover */
     border-color: #b74b4b;
     box-shadow: 0 20px 40px rgba(183, 75, 75, 0.3);
 }
@@ -23,7 +26,7 @@
 .card-img {
     width: 100%;
     height: 200px;
-    object-fit: cover;
+    object-fit: cover; /* Imagem preenche sem distorcer */
 }
 
 .card-content {
@@ -63,6 +66,8 @@
     gap: 0.5rem;
 }
 
+
+/* Overlay do modal (fundo escuro) */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -85,6 +90,7 @@
     visibility: visible;
 }
 
+/* Container principal do modal */
 .modal-content {
     background: #161616;
     width: 95%;
@@ -93,7 +99,7 @@
     border-radius: 1.5rem;
     overflow: hidden;
     display: flex;
-    transform: scale(0.8);
+    transform: scale(0.8); /* Anima entrada */
     transition: transform 0.3s ease;
 }
 
@@ -101,6 +107,7 @@
     transform: scale(1);
 }
 
+/* Botão fechar X */
 .modal-close {
     position: absolute;
     top: 2rem;
@@ -121,6 +128,7 @@
     transform: scale(1.1);
 }
 
+/* Lado esquerdo: imagem grande */
 .modal-image {
     flex: 1;
     min-height: 400px;
@@ -132,6 +140,7 @@
     object-fit: cover;
 }
 
+/* Lado direito: conteúdo texto */
 .modal-details {
     flex: 1;
     padding: 4rem;
@@ -154,6 +163,7 @@
     margin: 1rem 0 2rem;
 }
 
+/* Tags de tecnologias */
 .tech-tags {
     display: flex;
     flex-wrap: wrap;
@@ -170,9 +180,9 @@
     font-weight: 500;
 }
 
+/* Descrição longa do projeto */
 #modal-desc {
     font-size: 2rem;
-    /* Agora vai funcionar sem precisar do !important, mas pode manter se quiser garantir */
     color: #eee;
     line-height: 1.8;
     margin-bottom: auto;
@@ -181,29 +191,25 @@
 
 
 
+
+/* Botões fixos no fundo do modal (efeito sticky) */
 .modal-buttons {
     position: sticky;
     bottom: 0;
-    background: linear-gradient(to top, #161616, transparent);
-    /* degradê suave */
+    background: linear-gradient(to top, #161616, transparent); /* Fade suave */
     padding: 3rem 0 3rem;
-    /* mais espaço embaixo */
     border-top: 1px solid #444;
     display: flex;
     gap: 2rem;
     margin-top: auto;
-    backdrop-filter: blur(10px);
-    /* efeito vidro */
+    backdrop-filter: blur(10px); /* Vidro fosco */
 }
 
 .modal-buttons .btn {
     flex: 1;
     padding: 2.2rem 4rem;
-    /* ainda maior */
     font-size: 2.2rem;
-    /* texto maior */
     height: 6rem;
-    /* altura fixa */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -215,6 +221,7 @@
     overflow: hidden;
 }
 
+/* Efeito shimmer nos botões */
 .modal-buttons .btn::before {
     content: "";
     position: absolute;
@@ -230,6 +237,7 @@
     left: 100%;
 }
 
+/* Botão outline (repo) */
 .btn-outline {
     background: transparent !important;
     border: 3px solid #b74b4b !important;
@@ -241,46 +249,47 @@
     color: white !important;
 }
 
-/* RESPONSIVO */
+
+/* RESPONSIVO Mobile */
 @media (max-width: 768px) {
+    /* Modal vira coluna vertical */
     .modal-content {
         flex-direction: column;
-        /* Habilita o scroll vertical se o conteúdo for maior que a tela */
-        overflow-y: auto !important; 
-        /* Garante que o modal não ultrapasse a tela */
-        max-height: 90vh; 
+        overflow-y: auto !important;
+        max-height: 90vh;
     }
 
+    /* Imagem fixa em cima (não cresce) */
     .modal-image {
-        /* Reduz a altura da imagem no celular (400px é muito grande para mobile) */
-        min-height: 200px; 
-        max-height: 250px;
-        flex: none; /* Impede que a imagem tente crescer demais */
+        height: 250px;
+        flex: none;
     }
 
+    /* Detalhes sem altura fixa */
     .modal-details {
         padding: 2rem;
-        /* Remove a altura mínima obrigatória de 500px, deixando o texto definir o tamanho */
-        min-height: auto; 
+        min-height: auto;
     }
-    
+
+    /* Grid 1 coluna mobile */
     .projects-grid {
         grid-template-columns: 1fr;
     }
 
+    /* Texto menor mobile */
     #modal-desc {
-        font-size: 1.6rem; /* Ajuste leve para leitura mobile */
+        font-size: 1.6rem;
     }
-    
-    /* Ajuste para os botões não ficarem colados ou muito grandes */
+
+    /* Botões empilhados vertical */
     .modal-buttons {
-        position: static; /* Remove o sticky para fluir com o scroll */
+        position: static;
         padding: 2rem 0;
-        flex-direction: column; /* Botões um embaixo do outro no celular fica melhor */
+        flex-direction: column;
     }
-    
+
     .modal-buttons .btn {
-        width: 100%; /* Botão ocupa a largura toda */
+        width: 100%;
         font-size: 1.8rem;
     }
 }

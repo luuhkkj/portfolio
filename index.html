@@ -2,21 +2,25 @@
 <html lang="pt-br">
 
 <head>
+    <!-- Meta tags essenciais -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
         content="Portfólio de Yan Lucas, Desenvolvedor Full Stack e Gestor do LabIA, especializado em IA, Java e Python.">
     <title>Yan Lucas - Portfólio</title>
+
+    <!-- Font Awesome icons + CSS customizados -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="projetos.css">
-
 </head>
 
 <body>
+    <!-- Header fixo com logo, nav e hambúrguer -->
     <header>
         <a href="#home" class="logo">Yan Lucas</a>
 
+        <!-- Menu de navegação (desktop/hambúrguer mobile) -->
         <nav class="nav-menu">
             <a href="#home" class="active"> Home</a>
             <a href="#projetos"> Projetos </a>
@@ -26,13 +30,15 @@
             <a href="#contato"> Contato </a>
         </nav>
 
+        <!-- Ícones do hambúrguer (3 barras) -->
         <div class="hamburger">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
         </div>
     </header>
-    
+
+    <!-- Seção Hero/Home -->
     <section id="home" class="home">
         <div class="home-img">
             <img src="images/euquadrado.jpeg" alt="Foto de Yan Lucas">
@@ -43,6 +49,8 @@
             <p class="home-content p">Sou um desenvolvedor em formação que está constantemente estudando novas
                 tecnologias e ferramentas. Gosto de transformar teoria em projetos reais, explorando front-end, back-end
                 e inteligência artificial.</p>
+
+            <!-- Ícones redes sociais -->
             <div class="social-icons">
                 <a href="https://www.linkedin.com/in/luuhkkj/" target="_blank">
                     <i class="fa-brands fa-linkedin"></i>
@@ -55,19 +63,23 @@
                 </a>
             </div>
 
+            <!-- CTA WhatsApp -->
             <a href="https://wa.me/5571997300418?text=Ol%C3%A1%20Yan,%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar."
                 class="btn" target="_blank">
                 Contrate-me
             </a>
-
         </div>
     </section>
+
+    <!-- Seção Projetos (cards gerados via JS) -->
     <section id="projetos">
         <h2>Projetos</h2>
         <div class="projects-grid" id="projects-grid">
+            <!-- Conteúdo populado dinamicamente pelo script.js -->
         </div>
     </section>
 
+    <!-- Seção Habilidades -->
     <section id="habilidades">
         <h2>Habilidades</h2>
         <p> <strong> IA e Machine Learning: </strong> <br>
@@ -107,6 +119,7 @@
         </p>
     </section>
 
+    <!-- Seção Educação -->
     <section id="educacao">
         <h2>Educação</h2>
         <p> Bacharelado em Ciência da Computação <br>
@@ -126,6 +139,7 @@
         </p>
     </section>
 
+    <!-- Seção Experiência profissional -->
     <section id="experiencia">
         <h2>Experiência</h2>
         <p> <strong> Gestor do LabIA - Laboratório de Inteligência Artificial <br>
@@ -152,17 +166,48 @@
             • Gestão de projeto via Jira com ciclos de experimentação rápidos <br>
             • Realizei deploy da aplicação em plataforma cloud (Railway, Vercel) <br>
             • Participação em ciclos iterativos e aprendizado contínuo com mentoria <br>
-
         </p>
     </section>
 
+    <!-- Seção Contato simples -->
     <section id="contato">
         <h2>Contato</h2>
-        <p>Gmail: Yanlucasfacul1008@gmail.com
+        <p>
+            <strong>Envie email:</strong><br>
+            <a
+                href="mailto:Yanlucasfacul1008@gmail.com?subject=Contato%20do%20Portfólio%20Yan%20Lucas&body=Olá%20Yan,%0D%0A%0D%0AEstou%20interessado(a)%20em:%0D%0A-%20[descreva%20seu%20projeto/proposta]%0D%0A%0D%0AEmail:%20[seu-email]%0D%0ANome:%20[seu-nome]%0D%0A">
+                Yanlucasfacul1008@gmail.com
+            </a>
+        </p>
+
+        <p>
+            <strong>WhatsApp:</strong><br>
+            <a href="https://wa.me/5571997300418?text=Olá%20Yan,%20vi%20seu%20portfólio!">
+                (71) 99730-0418
+            </a>
+        </p>
+
+        <!-- LinkedIn direto (melhor pra networking tech) -->
+        <p>
+            <strong>LinkedIn:</strong><br>
+            <a href="https://www.linkedin.com/in/luuhkkj/" target="_blank">
+                linkedin.com/in/luuhkkj
+            </a>
+        </p>
+
+        <!-- GitHub (projetos/discussões) -->
+        <p>
+            <strong>GitHub:</strong><br>
+            <a href="https://github.com/luuhkkj" target="_blank">
+                github.com/luuhkkj
+            </a>
         </p>
     </section>
+
+    <!-- Script principal (scroll, menu, modais, projetos) -->
     <script src="script.js"></script>
 
+    <!-- Modal dos projetos (escondido, ativado via JS) -->
     <div class="modal-overlay" id="project-modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeProjectModal()">

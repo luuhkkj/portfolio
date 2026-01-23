@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
 
+/* Importa fonte Poppins com vários pesos */
+
 *{
+    /* Reset universal: remove margins, paddings e defaults do browser */
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -11,18 +14,19 @@
 }
 
 html{
-    font-size: 62.5%; 
+    font-size: 62.5%; /* 1rem = 10px, facilita cálculos */
 }
 
 body{
     width: 100%;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow-x: hidden; /* Evita barra horizontal */
     background-color: black;
     color: white;
-    padding-top: 80px;  
+    padding-top: 80px;  /* Espaço pro header fixo */
 }
 
+/* Header fixo no topo da página */
 header{
     position: fixed;
     top: 0;
@@ -36,7 +40,7 @@ header{
     align-items: center;
     z-index: 100;
     border-bottom: 1px solid #333;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease; /* Pro hide on scroll */
 }
 
 .logo{
@@ -57,7 +61,7 @@ nav a{
     margin-left: 4rem;
     font-weight: 500;
     transition: 0.3s ease;
-    border-bottom: 3px solid transparent;
+    border-bottom: 3px solid transparent; /* Underline effect */
 }
 
 nav a:hover,
@@ -72,7 +76,8 @@ section{
 }
 
 .home{
-    min-height: calc(100vh - 80px); /* 80px do padding-top do body */
+    /* Hero section full viewport menos header */
+    min-height: calc(100vh - 80px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -140,6 +145,7 @@ span{
     box-shadow: 0 0 25px #b74b4b;
 }
 
+/* Classe reutilizável pros botões */
 .btn{
     display: inline-block;
     padding: 1rem 2.8rem;
@@ -160,6 +166,7 @@ span{
     box-shadow: 0 0 25px #b74b4b;
 }
 
+/* Efeito de digitação animado */
 .typing-text {
     font-size: 3.4rem;
     font-weight: 600;
@@ -217,12 +224,14 @@ span{
     }
 }
 
+/* Tablet: reduz gap da home */
 @media (max-width: 1000px){
     .home{
         gap: 4rem;
     }
 }
 
+/* Mobile: stack vertical */
 @media(max-width:955px){
     .home{
         flex-direction: column;
@@ -254,9 +263,10 @@ section p {
     font-size: 2rem;
     line-height: 1.6;
     max-width: 800px;
-    margin: 0 auto 0 0; /* só margem à direita */
+    margin: 0 auto 0 0;
 }
 
+/* Ícone menu (não usado, pro futuro?) */
 #menu-icon {
     font-size: 3.6rem;
     color: #b74b4b;
@@ -264,6 +274,7 @@ section p {
     cursor: pointer;
 }
 
+/* Hambúrguer menu escondido desktop */
 .hamburger {
     display: none;
     cursor: pointer;
@@ -276,7 +287,7 @@ section p {
     margin: 5px auto;
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
-    background-color: white; /* Cor das barras */
+    background-color: white;
 }
 
 /* Animação do X quando ativo */
@@ -290,50 +301,51 @@ section p {
     transform: translateY(-8px) rotate(-45deg);
 }
 
+/* Mobile completo: hambúrguer + menu lateral */
 @media (max-width: 955px) {
     /* Mostra o botão hambúrguer */
     .hamburger {
         display: block;
-        z-index: 1001; /* Garante que fique acima de tudo */
+        z-index: 1001; /* Acima de tudo */
     }
 
-    /* O Header volta a ser linha (Logo na esq, Menu na dir) */
+    /* Header ajustado mobile */
     header {
         flex-direction: row;
         justify-content: space-between;
         padding: 2rem 5%;
-        height: 80px; /* Altura fixa para alinhar o menu */
+        height: 80px; /* Altura fixa */
     }
 
-    /* O Menu Gaveta */
+    /* Menu gaveta (slide from left) */
     .nav-menu {
         position: fixed;
         left: -100%; /* Escondido na esquerda */
-        top: 80px; /* Logo abaixo do header (80px é o padding-top do body) */
+        top: 80px; /* Abaixo do header */
         gap: 0;
         flex-direction: column;
-        background-color: #000; /* Fundo preto sólido */
+        background-color: #000;
         width: 100%;
         height: auto;
-        max-height: calc(100vh - 80px); /* para a altura não passar da tela */
+        max-height: calc(100vh - 80px); /* Não ultrapassa tela */
         text-align: center;
         transition: 0.3s ease-in-out;
         box-shadow: 0 10px 10px rgba(0,0,0,0.5);
         padding-top: 4rem;
-        display: flex; /* Garante flexbox */
-        justify-content: flex-start; /* Itens no topo */
+        display: flex;
+        justify-content: flex-start;
         border-top: 1px solid #333;
     }
 
-    /* Quando ativo, desliza para a tela */
+    /* Menu ativo desliza pra tela */
     .nav-menu.active {
         left: 0;
     }
 
-    /* Estilo dos Links no Mobile */
+    /* Estilo links no mobile menu */
     .nav-menu a {
         display: block;
-        font-size: 2.4rem; /* Texto maior no mobile */
+        font-size: 2.4rem; /* Maior toque */
         margin: 2rem 0;
         background: transparent;
         border: none;
@@ -344,10 +356,10 @@ section p {
     .nav-menu a.active {
         color: #b74b4b;
         background: transparent;
-        border: none; /* Remove bordas antigas */
+        border: none;
     }
     
-    /* Ajustes da Home para compensar o header fixo */
+    /* Home compensa header fixo */
     .home {
         margin-top: 0; 
         padding-top: 10rem;
