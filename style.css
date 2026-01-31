@@ -208,7 +208,7 @@ span{
 
 @keyframes words {
     0%, 20% {
-        content: "Ciêntista de Dados";
+        content: "Cientista de Dados";
     }
     21%, 40% {
         content: "Programador Full-Stack";
