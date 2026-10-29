@@ -73,8 +73,9 @@ window.addEventListener('scroll', function () {
 
 
 // ========== PROJETOS COM MODAL ==========
-/* Array com dados dos projetos (fácil adicionar novos) */
+/* Array com dados dos projetos */
 const projects = [
+
   {
     id: 1,
     title: "Movie Recommender",
@@ -86,27 +87,39 @@ const projects = [
     link: "https://colab.research.google.com/drive/1QGqnJW7ULUGyzZJ28i6ge8nD7CSQki8j?usp=sharing",
     repo: "https://github.com/luuhkkj/Sistema-de-recomenda-o-de-filmes"
   },
+
   {
     id: 2,
-    title: "Projeto 2",
+    title: "Medusa",
     category: "Mobile",
-    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&q=80",
-    shortDesc: "Controle financeiro pessoal.",
-    fullDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. App mobile com sincronização em tempo real.",
-    techs: ["React Native", "Firebase"],
-    link: "#",
-    repo: "#"
+    image: "images/medusa.png",
+    shortDesc: "Aplicativo voltado ao planejamento de rotas mais seguras para mulheres.",
+    fullDesc: "Projeto de aplicativo voltado à mobilidade e à segurança de mulheres. A proposta é apoiar o planejamento de trajetos com menor exposição a riscos, usando informações sobre o percurso para auxiliar a escolha de rotas. O objetivo é oferecer apoio à decisão, sem garantir a ausência de riscos no deslocamento.",
+    techs: ["React Native", "Expo", "TypeScript"],
+    link: null,
+    repo: "https://github.com/luuhkkj/Medusa"
   },
   {
     id: 3,
-    title: "Projeto 3",
-    category: "Data",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-    shortDesc: "Visualização de KPIs.",
-    fullDesc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dashboard interativo para análise de dados.",
-    techs: ["Python", "Pandas", "D3.js"],
-    link: "#",
-    repo: "#"
+    title: "Vértice",
+    category: "Dados e Educação",
+    image: "images/vertice.png",
+    shortDesc: "Sistema voltado à identificação precoce de riscos de evasão e reprovação escolar.",
+    fullDesc: "Projeto de sistema preditivo de risco de evasão e reprovação no Ensino Médio. A proposta é organizar indicadores como notas, frequência, histórico de reprovações, participação e entregas para apoiar professores e coordenação na identificação precoce de sinais de risco. O foco é subsidiar intervenções pedagógicas, sem substituir a avaliação dos educadores ou determinar automaticamente o futuro do estudante.",
+    techs: ["Python", "Streamlit", "Pandas", "Plotly"],
+    link: null,
+    repo: "https://github.com/luuhkkj/Vertice"
+  },
+  {
+    id: 4,
+    title: "Eyesland",
+    category: "Jogos",
+    image: "images/eyesland.png",
+    shortDesc: "Aventura 2D pirata com exploração, puzzles e terror psicológico.",
+    fullDesc: "Jogo 2D de aventura, puzzles e terror psicológico com temática pirata. O jogador acompanha Flint na busca pelo segredo da Ilha que Respira. A jornada começa em uma taverna, com relatos sobre desaparecimentos e um antigo tesouro, e avança por cenários de exploração, enigmas e desafios de escape room que revelam os mistérios da ilha.",
+    techs: ["Godot", "GDScript"],
+    link: null,
+    repo: "https://github.com/luuhkkj/Eyesland"
   }
 ];
 
@@ -117,67 +130,130 @@ function renderProjects() {
   const grid = document.getElementById('projects-grid');
   if (!grid) return;
 
-
   grid.innerHTML = projects.map(project => `
-    <div class="project-card" onclick="openProjectModal(${project.id})">
-      <img src="${project.image}" alt="${project.title}" class="card-img">
+    <div
+      class="project-card"
+      role="button"
+      tabindex="0"
+      aria-label="Ver detalhes de ${project.title}"
+      aria-haspopup="dialog"
+      data-project-id="${project.id}"
+    >
+      <img
+        src="${project.image}"
+        alt="${project.title}"
+        class="card-img"
+        loading="lazy"
+        decoding="async"
+      >
+
       <div class="card-content">
         <span class="card-category">${project.category}</span>
         <h3 class="card-title">${project.title}</h3>
         <p class="card-desc">${project.shortDesc}</p>
+
         <span class="card-link">
-          Ver detalhes <i class="fa-solid fa-arrow-right"></i>
+          Ver detalhes
+          <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
         </span>
       </div>
     </div>
   `).join('');
+
+  grid.querySelectorAll('.project-card').forEach(card => {
+    const open = () => {
+      openProjectModal(Number(card.dataset.projectId));
+    };
+
+    card.addEventListener('click', open);
+
+    card.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        open();
+      }
+    });
+  });
 }
 
 
 
 /* Abre modal com detalhes do projeto */
-function openProjectModal(id) {
-  const project = projects.find(p => p.id === id);
-  if (!project) return;
+  function openProjectModal(id) {
+    const project = projects.find(p => p.id === id);
+    if (!project) return;
 
+    const modal = document.getElementById('project-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalCategory = document.getElementById('modal-category');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalImg = document.getElementById('modal-img');
+    const modalLink = document.getElementById('modal-link');
+    const modalRepo = document.getElementById('modal-repo');
+    const modalTechs = document.getElementById('modal-techs');
 
-  const modal = document.getElementById('project-modal');
-  const modalTitle = document.getElementById('modal-title');
-  const modalCategory = document.getElementById('modal-category');
-  const modalDesc = document.getElementById('modal-desc');
-  const modalImg = document.getElementById('modal-img');
-  const modalLink = document.getElementById('modal-link');
-  const modalTechs = document.getElementById('modal-techs');
+    if (
+      !modal ||
+      !modalTitle ||
+      !modalCategory ||
+      !modalDesc ||
+      !modalImg ||
+      !modalLink ||
+      !modalRepo ||
+      !modalTechs
+    ) {
+      console.error('Elementos do modal não encontrados no DOM');
+      return;
+    }
 
+    modalTitle.textContent = project.title;
+    modalCategory.textContent = project.category;
+    modalDesc.textContent = project.fullDesc;
 
-  // Verificar se todos os elementos existem
-  if (!modal || !modalTitle || !modalCategory || !modalDesc || !modalImg || !modalLink || !modalTechs) {
-    console.error('Elementos do modal não encontrados no DOM');
-    return;
+    modalImg.src = project.image;
+    modalImg.alt = `Imagem do projeto ${project.title}`;
+
+    modalTechs.replaceChildren();
+
+    project.techs.forEach(tech => {
+      const tag = document.createElement('span');
+      tag.className = 'tech-tag';
+      tag.textContent = tech;
+      modalTechs.appendChild(tag);
+    });
+
+    const hasDemo =
+      typeof project.link === 'string' &&
+      project.link.trim() !== '' &&
+      project.link.trim() !== '#';
+
+    const hasRepo =
+      typeof project.repo === 'string' &&
+      project.repo.trim() !== '' &&
+      project.repo.trim() !== '#';
+
+    modalLink.hidden = !hasDemo;
+    modalRepo.hidden = !hasRepo;
+
+    if (hasDemo) {
+      modalLink.href = project.link;
+      modalLink.rel = 'noopener noreferrer';
+    } else {
+      modalLink.removeAttribute('href');
+    }
+
+    if (hasRepo) {
+      modalRepo.href = project.repo;
+      modalRepo.rel = 'noopener noreferrer';
+    } else {
+      modalRepo.removeAttribute('href');
+    }
+
+    modal.classList.toggle('repository-only', !hasDemo);
+    modal.classList.add('active');
+
+    document.body.style.overflow = 'hidden';
   }
-
-
-  modalTitle.textContent = project.title;
-  modalCategory.textContent = project.category;
-  modalDesc.textContent = project.fullDesc;
-  modalImg.src = project.image;
-  modalLink.href = project.link;
-
-
-  // Techs como tags
-  modalTechs.innerHTML = project.techs.map(tech => `<span class="tech-tag">${tech}</span>`).join('');
-
-
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden'; /* Bloqueia scroll bg */
-
-
-  modalLink.href = project.link;
-  const modalRepo = document.getElementById('modal-repo');
-  if (modalRepo && project.repo) {
-    modalRepo.href = project.repo;  // ← Popula repo link
-  }
-}
 
 
 
@@ -210,3 +286,124 @@ document.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeProjectModal();
 });
+
+// ========== EFEITO DE DIGITAÇÃO ==========
+function initTypingEffect() {
+  const element = document.getElementById('typing-role');
+
+  if (!element) {
+    console.error('Não foi encontrado o elemento #typing-role.');
+    return;
+  }
+
+  if (element.dataset.typingInitialized === 'true') return;
+  element.dataset.typingInitialized = 'true';
+
+  const roles = [
+    "Estudante de Computação",
+    "Desenvolvedor de Software",
+    "Entusiasta de Dados e IA",
+    "Cientista de Dados em Formação",
+    "Desenvolvedor de Projetos"
+  ];
+
+  const typingSpeed = 85;
+  const deletingSpeed = 40;
+  const pauseAfterTyping = 1600;
+  const pauseBeforeTyping = 300;
+
+  const motionPreference = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  );
+
+  // Mantém sua escolha atual de executar o efeito neste dispositivo.
+  // Para respeitar a preferência de movimento reduzido, use false.
+  const forceAnimationForTesting = true;
+
+  let roleIndex = 0;
+  let characterIndex = 0;
+  let timerId;
+
+  function typeNextCharacter() {
+    element.classList.remove('is-paused');
+
+    const text = roles[roleIndex];
+
+    characterIndex++;
+    element.textContent = text.slice(0, characterIndex);
+
+    if (characterIndex < text.length) {
+      timerId = window.setTimeout(
+        typeNextCharacter,
+        typingSpeed
+      );
+      return;
+    }
+
+    // Frase completa: começa a piscar durante a pausa.
+    element.classList.add('is-paused');
+
+    timerId = window.setTimeout(() => {
+      // Antes de apagar: cursor volta a ficar fixo e visível.
+      element.classList.remove('is-paused');
+      deleteNextCharacter();
+    }, pauseAfterTyping);
+  }
+
+  function deleteNextCharacter() {
+    element.classList.remove('is-paused');
+
+    const text = roles[roleIndex];
+
+    characterIndex--;
+    element.textContent = text.slice(0, characterIndex);
+
+    if (characterIndex > 0) {
+      timerId = window.setTimeout(
+        deleteNextCharacter,
+        deletingSpeed
+      );
+      return;
+    }
+
+    // Texto vazio: espera sem piscar e passa à próxima frase.
+    roleIndex = (roleIndex + 1) % roles.length;
+
+    timerId = window.setTimeout(
+      typeNextCharacter,
+      pauseBeforeTyping
+    );
+  }
+
+  function start() {
+    window.clearTimeout(timerId);
+    element.classList.remove('is-paused');
+
+    roleIndex = 0;
+    characterIndex = 0;
+
+    if (motionPreference.matches && !forceAnimationForTesting) {
+      element.textContent = roles[0];
+      return;
+    }
+
+    element.textContent = '';
+
+    timerId = window.setTimeout(
+      typeNextCharacter,
+      pauseBeforeTyping
+    );
+  }
+
+  if (typeof motionPreference.addEventListener === 'function') {
+    motionPreference.addEventListener('change', start);
+  }
+
+  start();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTypingEffect);
+} else {
+  initTypingEffect();
+}

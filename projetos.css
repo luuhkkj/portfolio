@@ -189,9 +189,6 @@
     flex: 1;
 }
 
-
-
-
 /* Botões fixos no fundo do modal (efeito sticky) */
 .modal-buttons {
     position: sticky;
@@ -292,4 +289,78 @@
         width: 100%;
         font-size: 1.8rem;
     }
+}
+
+.modal-buttons .btn[hidden] {
+    display: none !important;
+}
+
+
+.modal-overlay.repository-only .modal-content {
+    overflow-y: auto;
+}
+
+.modal-overlay.repository-only .modal-details {
+    min-width: 0;
+}
+
+.modal-overlay.repository-only #modal-desc {
+    font-size: 1.7rem;
+    line-height: 1.65;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+    .modal-overlay.repository-only #modal-desc {
+        font-size: 1.6rem;
+    }
+}
+
+/* Cards com conteúdo alinhado */
+.project-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-desc {
+    flex: 1;
+}
+
+.card-link {
+    margin-top: auto;
+}
+
+/* Imagens sem espaço de linha abaixo */
+.card-img {
+    display: block;
+}
+
+/* Modal com referência explícita para o botão fechar */
+.modal-content {
+    position: relative;
+}
+
+/* Botões podem quebrar linha sem estourar o modal */
+.modal-buttons {
+    flex-wrap: wrap;
+}
+
+.modal-buttons .btn {
+    min-width: 0;
+    gap: 0.6rem;
+    padding-inline: 1.5rem;
+}
+
+.project-card:focus-visible,
+.modal-close:focus-visible,
+.modal-buttons .btn:focus-visible {
+    outline: 3px solid #e48a8a;
+    outline-offset: 5px;
 }
